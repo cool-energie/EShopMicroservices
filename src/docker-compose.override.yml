@@ -19,7 +19,7 @@ services:
       - POSTGRES_DB=catalogdb
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - postgresdb_catalog:/var/lib/postgresql
   pgadmin:
