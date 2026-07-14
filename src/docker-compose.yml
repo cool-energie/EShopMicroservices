@@ -1,17 +1,37 @@
 services:
+  catalogdb:
+    image: postgres
+    
+  basketdb:
+    image: postgres
+
+  distributedcache:
+    image: redis
+    
+  pgadmin:
+     image: dpage/pgadmin4:9.8
+
   catalogapi:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: Services/Catalog/CatalogAPI/Dockerfile
-  catalogdb:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=catalogdb
-  pgadmin:
-     image: dpage/pgadmin4:9.8
+
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+
+  discount.grpc:
+    image: ${DOCKER_REGISTRY-}discountgrpc
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.Grpc/Dockerfile
 
 volumes:
   postgresdb_catalog:
+  postgresdb_basket:
+  redis_data:
+
+
